@@ -19,7 +19,8 @@ class LoadAverages < Scout::Plugin
               :last_five_minutes    => $4.to_f/num_processors,
               :last_fifteen_minutes => $6.to_f/num_processors
 
-      if $2.to_f > 1.0
+      # debugging to try and catch the culprit
+      if $2.to_f > 3.0
       	top_output = `top -c -b -n1`
       	ps_output  = `ps axr -o pcpu,pmem,pid,command`
       	alert("CPU Load Summary","#{ps_output}\n\n#{top_output}")
